@@ -2,26 +2,55 @@ import socket
 from tkinter import *
 from tkinter import messagebox
 import json
+import emoji
 
 root = Tk()
 root.title('Pizza order')
 root.geometry('300x300')
 
-Last_name_label = Label(root, text = 'Last Name:')
-Last_name_label.pack()
-Last_name_entry = Entry(root)
-Last_name_entry.pack()
+
+Header_label = Label(root, text = 'Order your pizza:', font=('Arial', 15))
+Header_label.pack()
+
+Pizza_label = Label(root, text = f'{emoji.emojize("🍕")}', font=('Helvetica', 32))
+Pizza_label.pack()
+
+First_name_label = Label(root, text = 'Last Name:')
+First_name_label.pack()
+First_name_entry = Entry(root)
+First_name_entry.pack()
 
 Phone_number_label = Label(root, text = 'Phone Number:')
 Phone_number_label.pack()
 Phone_number_entry = Entry(root)
 Phone_number_entry.pack()
 
+List_of_ingredients = [ 'Pepperoni', 'Sausage', 'Ham', 'Bell Pepper', 'Onion', 'Olives', 'Pineapple', 'Mushroom', 'Extra cheese']
+
+Ingredient_vars = []
+Ingredient_buttons = []
+
+for name in List_of_ingredients:
+    var = IntVar()
+    button = Checkbutton(
+        root, 
+        text = name,
+        variable=var,
+        onvalue=1,
+        offvalue=0,
+        height=2,
+        width=15
+    )
+    button.pack()
+    Ingredient_vars.append(var)
+    Ingredient_buttons.append(button)
+
+
 def Order_pizza() :
-    Last_name = Last_name_entry.get()
+    First_name = First_name_entry.get()
     Phone_number = Phone_number_entry.get()
 
-    New_order = {'Last_name' : Last_name, 'Phone_number': Phone_number}
+    New_order = {'First_name' : First_name, 'Phone_number': Phone_number}
     
     Order_json_string = json.dumps(New_order)
 
