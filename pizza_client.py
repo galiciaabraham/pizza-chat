@@ -4,46 +4,62 @@ from tkinter import messagebox
 import json
 import emoji
 
+#The root creates the Tkinter window for the user to interact with the connection.
 root = Tk()
 root.title('Pizza order')
-root.geometry('300x300')
+root.geometry('700x500')
+root.configure(padx=20, pady=20)
 
-
+#The header label creates a header for the tkinter window.
 Header_label = Label(root, text = 'Order your pizza:', font=('Arial', 15))
-Header_label.pack()
+Header_label.pack(pady=(10, 20), fill='x')
 
+#A pizza emoji
 Pizza_label = Label(root, text = f'{emoji.emojize("🍕")}', font=('Helvetica', 32))
 Pizza_label.pack()
 
-First_name_label = Label(root, text = 'Last Name:')
-First_name_label.pack()
-First_name_entry = Entry(root)
-First_name_entry.pack()
+#A frame to better organize form
+customer_info_frame = Frame(root)
+customer_info_frame.pack(pady=10, fill='x')
 
-Phone_number_label = Label(root, text = 'Phone Number:')
-Phone_number_label.pack()
-Phone_number_entry = Entry(root)
-Phone_number_entry.pack()
+First_name_label = Label(customer_info_frame, text = 'First Name:', font=('Helvetica', 12), bd=2, relief='solid', width=20, anchor='w')
+First_name_label.grid(row=0, column=0,padx=10, pady=5)
+First_name_entry = Entry(customer_info_frame, font=('Helvetica', 12), width=20)
+First_name_entry.grid(row=1, column=0, padx=10, pady=5)
+
+Phone_number_label = Label(customer_info_frame, text = 'Phone Number:', font=('Helvetica', 12), bd=2, relief='solid', width=20, anchor='w')
+Phone_number_label.grid(row=0, column=1, padx=10, pady=5)
+Phone_number_entry = Entry(customer_info_frame, font=('Helvetica', 12), width=20 )
+Phone_number_entry.grid(row=1, column=1, padx=10, pady=5)
+
+#A frame to create a box for the ingredients
+ingredients_frame = Frame(root, bd=2, relief='solid', padx=10, pady=10)
+ingredients_frame.pack(pady=20, fill='x')
+
+ingredients_label = Label(ingredients_frame, text='Select your ingredients:', font=('Helvetica', 12))
+ingredients_label.grid(row=0, column=0, columnspan=3, sticky='w', pady=(0,10))
 
 List_of_ingredients = [ 'Pepperoni', 'Sausage', 'Ham', 'Bell Pepper', 'Onion', 'Olives', 'Pineapple', 'Mushroom', 'Extra cheese']
 
 Ingredient_vars = []
 Ingredient_buttons = []
 
-for name in List_of_ingredients:
+for list, name in enumerate(List_of_ingredients):
     var = IntVar()
     button = Checkbutton(
-        root, 
+        ingredients_frame, 
         text = name,
         variable=var,
-        onvalue=1,
-        offvalue=0,
-        height=2,
-        width=15
+        font=('Helvetica',12),
+        padx=10,
+        pady=5        
     )
-    button.pack()
+
+    columns = 3
+    row = 1 + list // columns
+    col = list % columns
+    button.grid(row=row, column=col, sticky='w', padx=20, pady=5)
     Ingredient_vars.append(var)
-    Ingredient_buttons.append(button)
 
 
 def Order_pizza() :
@@ -81,7 +97,6 @@ Order_button.pack()
 
 root.mainloop()
 
-# Adjust ingredients selection position so they don't have to make the screen bigger.
 # Add  an option for delivery and pickup, which will show
 # additioanl fields to enter the address.
 # add validation to the tkinter form.
