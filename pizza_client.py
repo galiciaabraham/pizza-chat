@@ -168,8 +168,10 @@ def Order_pizza() :
             s.connect((HOST, PORT))
             s.sendall(Order_json_string.encode('utf-8'))
             data = s.recv(1024)
+            server_response = data.decode('utf-8')
         
-        messagebox.showinfo('Success', 'Pizza ordered correctly')
+        messagebox.showinfo('Order confirmation', server_response)
+
     except Exception as e:
         messagebox.showerror('Error', f'Order could not be processed, try again, {e}')
 
@@ -181,5 +183,5 @@ Order_button.pack()
 
 root.mainloop()
 
-#TODO: add validation to the tkinter form.
+#TODO: add validation to the tkinter form. add an order summary to be showed before sending the order.
 
