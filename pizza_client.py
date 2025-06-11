@@ -49,8 +49,12 @@ for name in List_of_ingredients:
 def Order_pizza() :
     First_name = First_name_entry.get()
     Phone_number = Phone_number_entry.get()
+    Selected_Ingredients = [
+        name for name, var in zip(List_of_ingredients, Ingredient_vars) if var.get() == 1
+    ]
 
-    New_order = {'First_name' : First_name, 'Phone_number': Phone_number}
+
+    New_order = {'First_name' : First_name, 'Phone_number': Phone_number, 'Ingredients' : Selected_Ingredients}
     
     Order_json_string = json.dumps(New_order)
 
@@ -77,15 +81,8 @@ Order_button.pack()
 
 root.mainloop()
 
-
-
-# Refactor code to send a JSON data with an order
-# Include a Tkinter GUI with a form that asks for
-# a name, phone number, pizza size and ingredients
-# the ingredients will be selected using a 
-# select menu where they can check a box 
-# if they want that ingredient in their pizza
-# an option for delivery and pickup will release
-# a second form to enter the address.
+# Adjust ingredients selection position so they don't have to make the screen bigger.
+# Add  an option for delivery and pickup, which will show
+# additioanl fields to enter the address.
 # add validation to the tkinter form.
 

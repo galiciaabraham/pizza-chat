@@ -17,12 +17,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             received_string = data.decode('utf-8')
             parsed_order = json.loads(received_string)
             print (f'Order data:{parsed_order}')
-            conn.sendall('What should I send here?')
+            conn.sendall('Order Received, estimated time: {}')
             
 
-#Refactor server to send back a tkinter confirmation
-# page containing the JSON info of the order
-# and the estimated time for pick up which will be 
+#Refactor server to send back a confirmation
+# message containing the estimated time for pick up which will be 
 # calculated by the number of ingredients picked
 # if delivery was selected, 25 minutes will be added
 # to the calculated time
