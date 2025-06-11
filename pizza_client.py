@@ -7,7 +7,7 @@ import emoji
 #The root creates the Tkinter window for the user to interact with the connection.
 root = Tk()
 root.title('Pizza order')
-root.geometry('700x500')
+root.geometry('700x800')
 root.configure(padx=20, pady=20)
 
 #The header label creates a header for the tkinter window.
@@ -61,6 +61,19 @@ for list, name in enumerate(List_of_ingredients):
     button.grid(row=row, column=col, sticky='w', padx=20, pady=5)
     Ingredient_vars.append(var)
 
+#A frame to create a box for the delivery options.
+delivery_options_frame = Frame(root)
+delivery_options_frame.pack(pady=10, fill='x')
+
+delivery_label = Label(delivery_options_frame, text='Do you want to:', font=('Helvetica', 12))
+delivery_label.grid(row=0, column=0, sticky='w', padx=(0,10))
+
+pick_up_button = Button(delivery_options_frame, text='Pick Up Pizza', font=('Helvetica', 12), width=15)
+pick_up_button.grid(row=10, column=1, sticky='w', padx=10)
+
+delivery_button = Button(delivery_options_frame, text='Get Pizza Delivered', font=('Helvetica', 12), width=17)
+delivery_button.grid(row=10, column=2, sticky='w', padx=10)
+
 
 def Order_pizza() :
     First_name = First_name_entry.get()
@@ -90,10 +103,9 @@ def Order_pizza() :
 
         print(f'Received {data!r}')
 
-
-
-Order_button = Button(root, text='Order', command=Order_pizza)
+Order_button = Button(root, text='Order Pizza', font=('Helvetica', 15), width=15, command=Order_pizza)
 Order_button.pack()
+
 
 root.mainloop()
 
