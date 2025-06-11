@@ -3,7 +3,8 @@ import json
 
 HOST = '127.0.0.1'
 PORT = 12345
-#using with ensures the connection is closed after being done. 
+
+#using "with" ensures the connection is closed after being done. 
 #socket will create a new node and conn will connect with the client.
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST,PORT))
@@ -23,12 +24,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             estimated_time = 0
             minutes_per_ingredient = 3
             expected_delivery_time = 30
+            
             number_of_ingredients = len(parsed_order.get('Ingredients',[]))
             estimated_time = number_of_ingredients * minutes_per_ingredient
 
             if parsed_order.get('Delivery_method') == 'delivery':
                 estimated_time += expected_delivery_time
             
+            #The response is crafted and then is sent back to the client.
             response = f"Than you for your order {parsed_order.get('First_name')}, You selected {parsed_order.get('Delivery_method')} as your delivery method. Estimated time: {estimated_time} minutes."
             conn.sendall(response.encode('utf-8'))
             
