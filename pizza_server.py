@@ -32,7 +32,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 estimated_time += expected_delivery_time
             
             #The response is crafted and then is sent back to the client.
-            response = f"Than you for your order {parsed_order.get('First_name')}, You selected {parsed_order.get('Delivery_method')} as your delivery method. Estimated time: {estimated_time} minutes."
+            response = f"Thank you for your order {parsed_order.get('First_name')}, You selected {parsed_order.get('Delivery_method')} as your delivery method. Estimated time: {estimated_time} minutes."
             conn.sendall(response.encode('utf-8'))
             
 
